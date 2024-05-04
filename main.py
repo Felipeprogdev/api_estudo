@@ -23,12 +23,17 @@ def obter_livros_id(_id):
     return jsonify(conect_db.carregar_dados(_id))
 
 
-# Editar
-@app.route('/livros/<int:_id>', methods=['PUT'])
+# Editar e deletar
+@app.route('/livros/<int:_id>', methods=['PUT', 'DELETE'])
 def editar_livro_por_id(_id):
-    livro_alterado = request.get_json()
-    conect_db.editar_dados(_id, livro_alterado)
-    return jsonify(conect_db.carregar_dados(_id))
+    if request.method == 'PUT':
+        livro_alterado = request.get_json()
+        conect_db.editar_dados(_id, livro_alterado)
+        return jsonify(conect_db.carregar_dados(_id))
+
+    if request.method == 'DELETE':
+        conect_db.deletar_dados(_id)
+        return jsonify(conect_db.carregar_dados())
 
 
 # Adicionar
@@ -36,13 +41,6 @@ def editar_livro_por_id(_id):
 def incluir_novo_livro():
     novo_livro = request.get_json()
     conect_db.adicionar_dados(novo_livro)
-    return jsonify(conect_db.carregar_dados())
-
-
-# Deletar
-@app.route('/livros/<int:_id>', methods=['DELETE'])
-def excluir_livro(_id):
-    conect_db.deletar_dados(_id)
     return jsonify(conect_db.carregar_dados())
 
 
