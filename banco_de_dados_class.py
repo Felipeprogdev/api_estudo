@@ -51,13 +51,12 @@ class Banco:
 
         cursor.execute("DELETE from livros WHERE id = ?", (__id,))
         conn.commit()
+        conn.close()
 
         if cursor.rowcount == 0:
             return 'Dado inexistente'
         else:
             return 'Deletado com sucesso!!'
-
-        conn.close()
 
 
 if __name__ == '__main__':
