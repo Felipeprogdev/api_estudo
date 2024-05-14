@@ -36,8 +36,8 @@ class Banco:
         conn = sqlite3.connect(self.db_name)
         cursor = conn.cursor()
 
-        if livro_alterado['nome'] is not None:
-            cursor.execute(""" UPDATE livros SET livro = ? WHERE id = ? """, (livro_alterado['nome'], id_alvo))
+        if livro_alterado['livro'] is not None:
+            cursor.execute(""" UPDATE livros SET livro = ? WHERE id = ? """, (livro_alterado['livro'], id_alvo))
 
         if livro_alterado['autor'] is not None:
             cursor.execute(""" UPDATE livros SET autor = ? WHERE id = ? """, (livro_alterado['autor'], id_alvo))

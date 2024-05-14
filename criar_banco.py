@@ -7,7 +7,7 @@ def criar_tabela():
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='livros'")
     if cursor.fetchone() is None:
         cursor.execute("CREATE TABLE livros ("
-                       "id INTEGER PRIMARY KEY,"
+                       " id INTEGER PRIMARY KEY,"
                        " livro TEXT,"
                        " autor TEXT )")
 
