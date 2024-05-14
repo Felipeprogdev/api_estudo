@@ -8,7 +8,7 @@ def criar_tabela():
     if cursor.fetchone() is None:
         cursor.execute("CREATE TABLE livros ("
                        "id INTEGER PRIMARY KEY,"
-                       " nome TEXT,"
+                       " livro TEXT,"
                        " autor TEXT )")
 
     banco.commit()

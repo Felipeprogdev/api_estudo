@@ -32,16 +32,20 @@ def editar_livro_por_id(_id):
         return jsonify(conect_db.carregar_dados(_id))
 
     if request.method == 'DELETE':
-        conect_db.deletar_dados(_id)
-        return jsonify(conect_db.carregar_dados())
+        a = conect_db.deletar_dados(_id)
+        return jsonify(a)
 
 
 # Adicionar
 @app.route('/livros', methods=['POST'])
 def incluir_novo_livro():
     novo_livro = request.get_json()
-    conect_db.adicionar_dados(novo_livro)
-    return jsonify(conect_db.carregar_dados())
+    verificar_se_existe = conect_db.carregar_dados(variavel_id=None, nome_do_livro=novo_livro['livro'])
+    if verificar_se_existe != 1:
+        conect_db.adicionar_dados(novo_livro)
+        return jsonify("Livro adicionado")
+    else:
+        return jsonify("Livro já está adicionado")
 
 
 app.run(port=5000, host='localhost', debug=True)
