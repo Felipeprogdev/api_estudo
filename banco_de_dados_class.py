@@ -36,6 +36,23 @@ class Banco:
         conn = sqlite3.connect(self.db_name)
         cursor = conn.cursor()
 
+        # Verificar se o livro foi atualizado
+        cursor.execute(""" SELECT livro, autor FROM livros WHERE id = ? """, (id_alvo,))
+        livro_antigo = cursor.fetchone()
+
+        # Se o livro não existir, retornar uma mensagem
+        if livro_antigo is None:
+            conn.close()
+            return "Id fornecido inexistente"
+
+        # Verificar se já existe um livro com o mesmo nome
+        if livro_alterado['livro'] is not None:
+            cursor.execute(""" SELECT id FROM livros WHERE livro = ? """, (livro_alterado['livro'],))
+            livro_existente = cursor.fetchone()
+            if livro_existente:
+                conn.close()
+                return "Já existe um livro com esse nome."
+
         if livro_alterado['livro'] is not None:
             cursor.execute(""" UPDATE livros SET livro = ? WHERE id = ? """, (livro_alterado['livro'], id_alvo))
 
@@ -43,7 +60,13 @@ class Banco:
             cursor.execute(""" UPDATE livros SET autor = ? WHERE id = ? """, (livro_alterado['autor'], id_alvo))
 
         conn.commit()
+
+        # Verificar se o livro foi atualizado
+        cursor.execute(""" SELECT livro, autor FROM livros WHERE id = ? """, (id_alvo,))
+
         conn.close()
+
+        return "O livro foi atualizado"
 
     def deletar_dados(self, __id):
         conn = sqlite3.connect(self.db_name)

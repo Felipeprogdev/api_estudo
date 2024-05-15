@@ -28,8 +28,8 @@ def obter_livros_id(_id):
 def editar_livro_por_id(_id):
     if request.method == 'PUT':
         livro_alterado = request.get_json()
-        conect_db.editar_dados(_id, livro_alterado)
-        return jsonify(conect_db.carregar_dados(_id))
+        retorno_do_edit = conect_db.editar_dados(_id, livro_alterado)
+        return jsonify(retorno_do_edit)
 
     if request.method == 'DELETE':
         a = conect_db.deletar_dados(_id)
