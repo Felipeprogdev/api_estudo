@@ -45,7 +45,6 @@ class Banco:
             conn.close()
             return "Id fornecido inexistente"
 
-
         cursor.execute(""" SELECT id FROM livros WHERE livro = ? """, (livro_alterado['livro'],))
         livro_existente = cursor.fetchone()
         if livro_existente:
