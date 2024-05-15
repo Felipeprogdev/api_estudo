@@ -45,13 +45,12 @@ class Banco:
             conn.close()
             return "Id fornecido inexistente"
 
-        # Verificar se já existe um livro com o mesmo nome
-        if livro_alterado['livro'] is not None:
-            cursor.execute(""" SELECT id FROM livros WHERE livro = ? """, (livro_alterado['livro'],))
-            livro_existente = cursor.fetchone()
-            if livro_existente:
-                conn.close()
-                return "Já existe um livro com esse nome."
+
+        cursor.execute(""" SELECT id FROM livros WHERE livro = ? """, (livro_alterado['livro'],))
+        livro_existente = cursor.fetchone()
+        if livro_existente:
+            conn.close()
+            return "Já existe um livro com esse nome."
 
         if livro_alterado['livro'] is not None:
             cursor.execute(""" UPDATE livros SET livro = ? WHERE id = ? """, (livro_alterado['livro'], id_alvo))
