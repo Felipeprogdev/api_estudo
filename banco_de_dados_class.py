@@ -38,10 +38,10 @@ class Banco:
 
         # Verificar se o livro foi atualizado
         cursor.execute(""" SELECT livro, autor FROM livros WHERE id = ? """, (id_alvo,))
-        livro_antigo = cursor.fetchone()
+        verificar_se_livro_existe = cursor.fetchone()
 
         # Se o livro não existir, retornar uma mensagem
-        if livro_antigo is None:
+        if verificar_se_livro_existe is None:
             conn.close()
             return "Id fornecido inexistente"
 
