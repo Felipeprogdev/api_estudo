@@ -45,7 +45,7 @@ def incluir_novo_livro():
         conect_db.adicionar_dados(novo_livro)
         return jsonify("Livro adicionado")
     else:
-        return jsonify("Livro já está adicionado")
+        return jsonify("Já existe um livro com esse nome")
 
 
 app.run(port=5000, host='localhost', debug=True)
